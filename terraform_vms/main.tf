@@ -1,0 +1,157 @@
+resource "yandex_vpc_network" "develop" {
+  name = var.vpc_name
+}
+resource "yandex_vpc_subnet" "develop" {
+  name           = var.vpc_name
+  zone           = var.default_zone
+  network_id     = yandex_vpc_network.develop.id
+  v4_cidr_blocks = var.default_cidr
+}
+
+
+data "yandex_compute_image" "ubuntu" {
+  family = var.image_name
+}
+
+resource "yandex_compute_instance" "node1" {
+  name        = local.name_node1
+  platform_id = "standard-v1"
+  resources {
+    cores         = var.vm_resources.core
+    memory        = var.vm_resources.memory
+    core_fraction = var.vm_resources.core_fraction
+  }
+  boot_disk {
+    initialize_params {
+      image_id = data.yandex_compute_image.ubuntu.image_id
+    }
+  }
+  scheduling_policy {
+    preemptible = var.vm_premtible
+  }
+  network_interface {
+    subnet_id = yandex_vpc_subnet.develop.id
+    nat       = var.vm_nat
+  }
+
+  metadata = {
+    serial-port-enable = var.metadata.serial-port-enable
+    ssh-keys           = "ubuntu:${var.metadata.ssh-keys}"
+  }
+
+}
+
+
+resource "yandex_compute_instance" "node2" {
+  name        = local.name_node2
+  platform_id = "standard-v1"
+  resources {
+    cores         = var.vm_resources.core
+    memory        = var.vm_resources.memory
+    core_fraction = var.vm_resources.core_fraction
+  }
+  boot_disk {
+    initialize_params {
+      image_id = data.yandex_compute_image.ubuntu.image_id
+    }
+  }
+  scheduling_policy {
+    preemptible = var.vm_premtible
+  }
+  network_interface {
+    subnet_id = yandex_vpc_subnet.develop.id
+    nat       = var.vm_nat
+  }
+
+  metadata = {
+    serial-port-enable = var.metadata.serial-port-enable
+    ssh-keys           = "ubuntu:${var.metadata.ssh-keys}"
+  }
+
+}
+
+
+resource "yandex_compute_instance" "node3" {
+  name        = local.name_node3
+  platform_id = "standard-v1"
+  resources {
+    cores         = var.vm_resources.core
+    memory        = var.vm_resources.memory
+    core_fraction = var.vm_resources.core_fraction
+  }
+  boot_disk {
+    initialize_params {
+      image_id = data.yandex_compute_image.ubuntu.image_id
+    }
+  }
+  scheduling_policy {
+    preemptible = var.vm_premtible
+  }
+  network_interface {
+    subnet_id = yandex_vpc_subnet.develop.id
+    nat       = var.vm_nat
+  }
+
+  metadata = {
+    serial-port-enable = var.metadata.serial-port-enable
+    ssh-keys           = "ubuntu:${var.metadata.ssh-keys}"
+  }
+
+}
+
+resource "yandex_compute_instance" "node4" {
+  name        = local.name_node4
+  platform_id = "standard-v1"
+  resources {
+    cores         = var.vm_resources.core
+    memory        = var.vm_resources.memory
+    core_fraction = var.vm_resources.core_fraction
+  }
+  boot_disk {
+    initialize_params {
+      image_id = data.yandex_compute_image.ubuntu.image_id
+    }
+  }
+  scheduling_policy {
+    preemptible = var.vm_premtible
+  }
+  network_interface {
+    subnet_id = yandex_vpc_subnet.develop.id
+    nat       = var.vm_nat
+  }
+
+  metadata = {
+    serial-port-enable = var.metadata.serial-port-enable
+    ssh-keys           = "ubuntu:${var.metadata.ssh-keys}"
+  }
+
+}
+
+resource "yandex_compute_instance" "master1" {
+  name        = local.name_master1
+  platform_id = "standard-v1"
+  resources {
+    cores         = var.vm_resources.core
+    memory        = var.vm_resources.memory
+    core_fraction = var.vm_resources.core_fraction
+  }
+  boot_disk {
+    initialize_params {
+      image_id = data.yandex_compute_image.ubuntu.image_id
+    }
+  }
+  scheduling_policy {
+    preemptible = var.vm_premtible
+  }
+  network_interface {
+    subnet_id = yandex_vpc_subnet.develop.id
+    nat       = var.vm_nat
+  }
+
+  metadata = {
+    serial-port-enable = var.metadata.serial-port-enable
+    ssh-keys           = "ubuntu:${var.metadata.ssh-keys}"
+  }
+
+}
+
