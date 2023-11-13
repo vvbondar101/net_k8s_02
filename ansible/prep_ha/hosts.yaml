@@ -1,0 +1,29 @@
+k8s_masters:
+  hosts:
+    # Control nodes
+    master1.local:
+      ansible_host: 84.252.130.163
+      ansible_user: ubuntu
+    master2.local:
+      ansible_host: 84.201.158.3
+      ansible_user: ubuntu
+    master3.local:
+      ansible_host: 84.201.135.82
+      ansible_user: ubuntu
+
+    
+k8s_workers:
+  hosts:
+    # Worker nodes
+    ws1.kryukov.local:
+      ansible_host: 192.168.218.174
+    ws2.kryukov.local:
+      ansible_host: 192.168.218.175
+    ws3.kryukov.local:
+      ansible_host: 192.168.218.176
+    ws4.kryukov.local:
+      ansible_host: 192.168.218.177
+k8s_cluster:
+  children:
+    k8s_masters:
+    k8s_workers:
