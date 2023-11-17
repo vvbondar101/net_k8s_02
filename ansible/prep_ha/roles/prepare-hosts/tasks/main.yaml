@@ -1,0 +1,75 @@
+---
+
+- name: Ensure dependencies are installed.
+  apt:
+    name:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - gpg
+    state: present
+    update_cache: yes
+  become: true
+
+- name: Add Kubernetes apt key.
+  apt_key:
+    url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+  become: true
+
+- name: Add Kubernetes repository.
+  apt_repository:
+    repo: deb http://apt.kubernetes.io/ kubernetes-xenial main
+    state: present
+    update_cache: true
+  become: true
+
+# - name: Add Kubernetes apt preferences file to pin a version.
+#   template:
+#     src: apt-preferences-kubernetes.j2
+#     dest: /etc/apt/preferences.d/kubernetes
+#     mode: 0644
+#   become: true
+
+- name: Install kubelet kubeadm kubectl
+  apt:
+    name:
+      - kubelet
+      - kubeadm
+      - kubectl
+      - containerd
+    state: present
+    update_cache: yes
+  become: true
+
+- name: Load modules
+  modprobe:
+    name: br_netfilter
+  become: true
+
+- name: Set Sysctl on all nodes
+  sysctl:
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+    state: present
+  with_items:
+    - name: net.ipv4.ip_forward
+      value: 1
+    - name: net.bridge.bridge-nf-call-iptables
+      value: 1
+    - name: net.bridge.bridge-nf-call-arptables
+      value: 1
+    - name: net.bridge.bridge-nf-call-ip6tables
+      value: 1
+  become: true
+
+
+# - name: Set Sysctl on master node(s)
+#   when: inventory_hostname in groups['k8s_masters']
+#   sysctl:
+#     name: "{{ item.name }}"
+#     value: "{{ item.value }}"
+#     state: present
+#   with_items:
+#     - name: net.ipv4.ip_nonlocal_bind
+#       value: 1
+
