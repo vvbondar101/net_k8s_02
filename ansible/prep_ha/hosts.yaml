@@ -2,31 +2,37 @@ k8s_masters:
   hosts:
     # Control nodes
     master-01:
-      ansible_host: 62.84.118.213
+      ansible_host: 84.201.135.200
       ansible_user: ubuntu
     master-02:
-      ansible_host: 51.250.84.136
+      ansible_host: 62.84.116.50
       ansible_user: ubuntu
     master-03:
-      ansible_host: 51.250.94.146
+      ansible_host: 51.250.88.162
       ansible_user: ubuntu
 
-    
+nlb:
+  hosts:
+    # Control nodes
+    nlb:
+      ansible_host: 51.250.14.113
+      ansible_user: ubuntu
+
 k8s_workers:
   hosts:
     # Worker nodes
     node-01:
-      ansible_host: 84.201.135.93
+      ansible_host: 51.250.94.251
       ansible_user: ubuntu
     node-02:
-      ansible_host: 51.250.12.58
+      ansible_host: 51.250.86.83
       ansible_user: ubuntu
-    node-03:
-      ansible_host: 62.84.114.104
-      ansible_user: ubuntu
-    node-04:
-      ansible_host: 62.84.119.68
-      ansible_user: ubuntu
+    # node-03:
+    #   ansible_host: 158.160.119.154
+    #   ansible_user: ubuntu
+    # node-04:
+    #   ansible_host: 51.250.14.150
+    #   ansible_user: ubuntu
 k8s_cluster:
   children:
     k8s_masters:

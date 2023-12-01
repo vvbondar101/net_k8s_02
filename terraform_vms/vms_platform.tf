@@ -4,7 +4,15 @@ variable "vm_resources" {
   type = map
   default = {
     core = 2
-    memory = 2
+    memory = 4
+    core_fraction = 20
+}
+}
+variable "vm_resources_master" {
+  type = map
+  default = {
+    core = 2
+    memory = 8
     core_fraction = 20
 }
 }
@@ -19,7 +27,7 @@ variable "metadata" {
 
 variable "vm_premtible" {
   type        = bool
-  default     = true
+  default     = false
   description = "VM premtible"
 }
 variable "vm_nat" {

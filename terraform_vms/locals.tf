@@ -1,4 +1,5 @@
 locals {
+    name_nlb = "nlb"
     name_node1 = "${ var.vm_name_prefix }-01"
     name_node2 = "${ var.vm_name_prefix }-02"
     name_node3 = "${ var.vm_name_prefix }-03"

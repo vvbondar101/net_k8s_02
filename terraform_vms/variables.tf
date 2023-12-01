@@ -2,7 +2,7 @@
 
 variable "image_name" {
   type        = string
-  default     = "ubuntu-2204-lts"
+  default     = "ubuntu-2004-lts"
   description = "yandex compute image name"
 }
 variable "vm_name_prefix" {
